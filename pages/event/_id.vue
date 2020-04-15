@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Create an Event</h1>
+    <h1>Event #{{ id }}</h1>
   </div>
 </template>
 
@@ -8,15 +8,20 @@
 import Vue from 'vue'
 
 export default Vue.extend({
+  computed: {
+    id(): string {
+      return this.$route.params.id
+    }
+  },
+
   head() {
     return {
-      title: 'Create an Event',
+      title: 'Event #' + this.id,
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content:
-            'Where you can create a new event taking place in yuor neighborhood'
+          content: 'What you need to know about event #' + this.id
         }
       ]
     }
