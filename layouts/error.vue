@@ -44,7 +44,7 @@ export default Vue.extend({
 
   head() {
     return {
-      title: this.message
+      title: (this as any).message
     }
   }
 })

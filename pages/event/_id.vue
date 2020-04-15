@@ -16,12 +16,12 @@ export default Vue.extend({
 
   head() {
     return {
-      title: 'Event #' + this.id,
+      title: 'Event #' + (this as any).id,
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: 'What you need to know about event #' + this.id
+          content: 'What you need to know about event #' + (this as any).id
         }
       ]
     }
