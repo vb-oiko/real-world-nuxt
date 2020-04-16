@@ -7,6 +7,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapState } from 'vuex'
 import EventCard from '@/components/EventCard.vue'
 
 export default Vue.extend({
@@ -14,20 +15,20 @@ export default Vue.extend({
     EventCard
   },
 
-  async asyncData(context: any) {
-    const { data } = await context.$axios
-      .get('http://localhost:3001/events')
-      .catch(() => {
-        context.error({
-          statusCode: 503,
-          message: 'Unable to fetch events this time. Please try again.'
-        })
+  async fetch(context: any) {
+    try {
+      await context.store.dispatch('events/fetchEvents')
+    } catch (e) {
+      context.error({
+        statusCode: 503,
+        message: 'Unable to fetch event #' + context.params.id
       })
-
-    return {
-      events: data
     }
   },
+
+  computed: mapState({
+    events: (state: any) => state.events.events
+  }),
 
   head() {
     return {
